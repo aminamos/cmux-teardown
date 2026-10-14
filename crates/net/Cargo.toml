@@ -1,0 +1,11 @@
+[package]
+name = "rework-net"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Rework p2p transport: iroh endpoints, ALPN protocols, echo/analysis framing"
+
+[dependencies]
+iroh.workspace = true
+tokio = { workspace = true, features = ["rt", "macros", "sync", "time", "io-util"] }
+thiserror.workspace = true

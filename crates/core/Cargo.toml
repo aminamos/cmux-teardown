@@ -1,0 +1,19 @@
+[package]
+name = "rework-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Static-analysis engine core for Rework: targets, evidence, knife runner, analyst store"
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+tokio = { workspace = true, features = ["fs", "process", "io-util", "sync"] }
+thiserror.workspace = true
+sha2.workspace = true
+hex.workspace = true
+dirs.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
+tokio = { workspace = true, features = ["fs", "process", "io-util", "sync", "rt-multi-thread", "macros"] }

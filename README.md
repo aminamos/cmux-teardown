@@ -1,6 +1,7 @@
 # cmux-teardown
 
-Teardown notes for building a **Windows-first Rust reverse-engineering app**:
+**Rework** — a Windows-first Rust reverse-engineering workbench (Tauri +
+`knife` + iroh + cloud VMs), plus the teardown notes it was designed from:
 what cmux Cloud VMs actually give you vs raw [freestyle.sh](https://www.freestyle.sh/pricing),
 plus tool details on [knife](https://github.com/bl4ckr0ss3/knife) and
 [REA](https://github.com/morluto/rea) to reuse when designing the app
@@ -42,6 +43,31 @@ Full tables + sources: [docs/cmux-founders-vs-freestyle.md](docs/cmux-founders-v
 | [docs/knife-tool.md](docs/knife-tool.md) | knife: Rust static-RE toolkit (CLI/TUI/MCP), full command + MCP tool inventory |
 | [docs/rea-tool.md](docs/rea-tool.md) | REA: agent-first RE over MCP (providers, evidence contract, target matrix) |
 | [docs/windows-rust-app-plan.md](docs/windows-rust-app-plan.md) | App plan: Windows Rust core + iroh + cloud VMs, reusing knife/REA patterns |
+
+## Code (M0–M2 scaffold)
+
+```
+crates/core   rework-core  — targets, evidence records, knife runner, analyst store
+crates/cli    rework       — `rework triage|sec|sinks|audit|name|note|proto|db`
+crates/mcp    rework-mcp   — MCP server over stdio (same engine, agent-facing)
+crates/net    rework-net   — iroh transport: endpoints, ALPNs, echo/analysis framing
+apps/desktop  Rework       — Tauri v2 app (Windows-first) + vanilla-TS workbench UI
+```
+
+Prereqs (Windows): Rust stable, Node 22 LTS, WebView2 (preinstalled on
+Win10/11), and the `knife` engine (`cargo install reknife`, or set
+`REWORK_KNIFE_BIN`).
+
+```powershell
+cargo build
+cargo test
+cargo run -p rework-cli -- triage C:\path\to\binary.exe
+cd apps/desktop; npm ci; npm run build; cd src-tauri; cargo tauri dev
+```
+
+Socket tests are ignored by default (sandboxes block binds); run them with
+`cargo test -p rework-net -- --include-ignored`. CI runs fmt + clippy + tests
+on Ubuntu and builds the desktop app + UI on Windows.
 
 ## Sources (checked 2026-10-14)
 

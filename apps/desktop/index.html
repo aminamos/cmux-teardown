@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rework</title>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-name">Rework</span>
+        <span class="brand-sub">static RE workbench</span>
+      </div>
+      <div class="topbar-status">
+        <span id="knife-status" class="pill">knife: …</span>
+        <span id="net-status" class="pill">net: …</span>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="side">
+        <section>
+          <h2>Target</h2>
+          <div class="row">
+            <button id="pick-file" class="btn primary">Open binary…</button>
+          </div>
+          <div id="target-path" class="path mono">no target selected</div>
+          <dl id="target-meta" class="meta">
+            <div><dt>sha256</dt><dd id="target-sha" class="mono">—</dd></div>
+            <div><dt>size</dt><dd id="target-size">—</dd></div>
+          </dl>
+        </section>
+
+        <section>
+          <h2>Analyze</h2>
+          <div class="btn-grid">
+            <button class="btn tool" data-tool="triage">Triage</button>
+            <button class="btn tool" data-tool="sec">Sec</button>
+            <button class="btn tool" data-tool="sinks">Sinks</button>
+            <button class="btn tool" data-tool="audit">Audit</button>
+          </div>
+          <p class="hint">Static only — the target is never executed.</p>
+        </section>
+
+        <section>
+          <h2>Annotate</h2>
+          <label class="field">Address
+            <input id="ann-addr" class="input mono" placeholder="0x4017a0" spellcheck="false" />
+          </label>
+          <label class="field">Name
+            <input id="ann-name" class="input mono" placeholder="parse_record" spellcheck="false" />
+          </label>
+          <div class="row">
+            <button id="ann-save-name" class="btn">Save name</button>
+          </div>
+          <label class="field">Note
+            <input id="ann-note" class="input" placeholder="len comes from the packet" spellcheck="false" />
+          </label>
+          <div class="row">
+            <button id="ann-save-note" class="btn">Add note</button>
+          </div>
+        </section>
+
+        <section>
+          <h2>Network</h2>
+          <div id="net-id" class="path mono">node id: …</div>
+          <div class="row">
+            <button id="net-echo" class="btn">Echo roundtrip</button>
+          </div>
+          <div id="net-echo-out" class="path mono">—</div>
+        </section>
+      </aside>
+
+      <main class="main">
+        <nav class="tabs">
+          <button class="tab active" data-tab="evidence">Evidence</button>
+          <button class="tab" data-tab="store">Annotations</button>
+        </nav>
+        <pre id="view-evidence" class="view mono">Run an analysis to see its evidence record here.</pre>
+        <pre id="view-store" class="view mono hidden">Open a target to see its stored annotations.</pre>
+        <footer id="status-line" class="statusline">ready</footer>
+      </main>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+[workspace]
+resolver = "2"
+members = [
+  "crates/core",
+  "crates/cli",
+  "crates/mcp",
+  "crates/net",
+  "apps/desktop/src-tauri",
+]
+# Desktop (Tauri/WebView) builds explicitly or in CI; core crates are the default.
+default-members = [
+  "crates/core",
+  "crates/cli",
+  "crates/mcp",
+  "crates/net",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/aminamos/cmux-teardown"
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = "1"
+anyhow = "1"
+thiserror = "2"
+clap = { version = "4", features = ["derive", "env"] }
+sha2 = "0.10"
+hex = "0.4"
+dirs = "6"
+tempfile = "3"
+iroh = "1"
+
+rework-core = { path = "crates/core" }
+rework-net = { path = "crates/net" }
+
+[profile.release]
+strip = true
